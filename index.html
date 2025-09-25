@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>八向随机器 🎲</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+      background: #111;
+      color: #eee;
+    }
+    button {
+      font-size: 20px;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 10px;
+      border: none;
+      background: #4cafef;
+      color: white;
+    }
+    .result {
+      margin-top: 30px;
+      font-size: 28px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>八向随机器 🎲</h1>
+  <p>点击按钮，随机选择一个方向：</p>
+  <button onclick="rollDirection()">随机方向</button>
+  <div class="result" id="result">👉 等待掷骰…</div>
+
+  <script>
+    const directions = [
+      "↑ 北 (N)",
+      "↗ 东北 (NE)",
+      "→ 东 (E)",
+      "↘ 东南 (SE)",
+      "↓ 南 (S)",
+      "↙ 西南 (SW)",
+      "← 西 (W)",
+      "↖ 西北 (NW)"
+    ];
+
+    function rollDirection() {
+      const idx = Math.floor(Math.random() * directions.length);
+      document.getElementById("result").textContent =
+        "🎲 " + directions[idx];
+    }
+  </script>
+</body>
+</html>
