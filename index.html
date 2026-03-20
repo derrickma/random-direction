@@ -51,7 +51,7 @@
 
   <div id="questionSection">
     <h1>先回答问题</h1>
-    <p>问题：今年是什么年？</p>
+    <p>问题：宫廷玉液酒？</p>
     <input type="text" id="answerInput" placeholder="请输入答案">
     <button onclick="checkAnswer()">提交答案</button>
     <div id="answerMessage"></div>
@@ -67,7 +67,7 @@
     <select id="months"></select>
 
     <button onclick="calculate()">计算</button>
-    <div>3月4日之后还能领 <span id="calcResult">4</span> 周</div>
+    <div>还能继续领 <span id="calcResult">？？</span> 周</div>
   </div>
 
   <script>
@@ -93,7 +93,7 @@
       const questionSection = document.getElementById("questionSection");
       const calculatorSection = document.getElementById("calculatorSection");
 
-      if (answer === "马" || answer === "马年") {
+      if (answer === "一百八一杯") {
         message.textContent = "回答正确，可以查看第二个计算器。";
         questionSection.style.display = "none";
         calculatorSection.style.display = "block";
