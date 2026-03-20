@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="zh">
-
 <head>
   <meta charset="UTF-8">
-  <title>八向随机器 🎲</title>
+  <title>八向随机器 + 计算器</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -21,6 +20,13 @@
       border: none;
       background: #4cafef;
       color: white;
+      margin: 10px;
+    }
+
+    input, select {
+      font-size: 18px;
+      padding: 8px 12px;
+      margin: 8px;
     }
 
     .result {
@@ -28,14 +34,41 @@
       font-size: 28px;
       font-weight: bold;
     }
+
+    #calculatorSection {
+      display: none;
+      margin-top: 30px;
+    }
   </style>
 </head>
-
 <body>
   <h1>八向随机器 🎲</h1>
   <p>点击按钮，随机选择一个方向：</p>
   <button onclick="rollDirection()">随机方向</button>
-  <div class="result" id="result">👉 等待掷骰…</div>
+  <div class="result" id="directionResult">👉 等待掷骰…</div>
+
+  <hr>
+
+  <div id="questionSection">
+    <h1>先回答问题</h1>
+    <p>问题：今年是什么年？</p>
+    <input type="text" id="answerInput" placeholder="请输入答案">
+    <button onclick="checkAnswer()">提交答案</button>
+    <div id="answerMessage"></div>
+  </div>
+
+  <div id="calculatorSection">
+    <hr>
+    <h1>计算器</h1>
+    <label for="years">年数</label>
+    <select id="years"></select>
+
+    <label for="months">月数</label>
+    <select id="months"></select>
+
+    <button onclick="calculate()">计算</button>
+    <div>3月4日之后还能领 <span id="calcResult">4</span> 周</div>
+  </div>
 
   <script>
     const directions = [
@@ -51,20 +84,24 @@
 
     function rollDirection() {
       const idx = Math.floor(Math.random() * directions.length);
-      document.getElementById("result").textContent =
-        "🎲 " + directions[idx];
+      document.getElementById("directionResult").textContent = "🎲 " + directions[idx];
     }
-  </script>
 
-  <hr>
-  <h1>计算器</h1>
-  <label for="years">年数</label>
-  <select id="years"></select>
-  <label for="months">月数</label>
-  <select id="months"></select>
-  <button onclick="calculate()">计算</button>
-  <div>还能再领<span id="calcResult">？？</span>周</div>
-  <script>
+    function checkAnswer() {
+      const answer = document.getElementById("answerInput").value.trim();
+      const message = document.getElementById("answerMessage");
+      const questionSection = document.getElementById("questionSection");
+      const calculatorSection = document.getElementById("calculatorSection");
+
+      if (answer === "马" || answer === "马年") {
+        message.textContent = "回答正确，可以查看第二个计算器。";
+        questionSection.style.display = "none";
+        calculatorSection.style.display = "block";
+      } else {
+        message.textContent = "回答错误，请再试一次。";
+        calculatorSection.style.display = "none";
+      }
+    }
 
     function populate(select, max, label) {
       for (let i = 0; i <= max; i++) {
@@ -83,13 +120,13 @@
       const years = Number(document.getElementById('years').value) || 0;
       const months = Number(document.getElementById('months').value) || 0;
       const serviceYears = years + months / 12;
-      const extraWeeks = Math.max(4, 4 * serviceYears - 4)
+      const extraWeeks = Math.max(4, 4 * serviceYears - 4);
       document.getElementById("calcResult").textContent = round2(extraWeeks);
     }
 
     populate(document.getElementById('years'), 10, '年');
     populate(document.getElementById('months'), 11, '个月');
+    calculate();
   </script>
 </body>
-
 </html>
