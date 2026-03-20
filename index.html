@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh">
+
 <head>
   <meta charset="UTF-8">
   <title>八向随机器 🎲</title>
@@ -11,6 +12,7 @@
       background: #111;
       color: #eee;
     }
+
     button {
       font-size: 20px;
       padding: 10px 20px;
@@ -20,6 +22,7 @@
       background: #4cafef;
       color: white;
     }
+
     .result {
       margin-top: 30px;
       font-size: 28px;
@@ -27,6 +30,7 @@
     }
   </style>
 </head>
+
 <body>
   <h1>八向随机器 🎲</h1>
   <p>点击按钮，随机选择一个方向：</p>
@@ -51,5 +55,41 @@
         "🎲 " + directions[idx];
     }
   </script>
+
+  <hr>
+  <h1>计算器</h1>
+  <label for="years">年数</label>
+  <select id="years"></select>
+  <label for="months">月数</label>
+  <select id="months"></select>
+  <button onclick="calculate()">计算</button>
+  <div>还能再领<span id="calcResult">？？</span>周</div>
+  <script>
+
+    function populate(select, max, label) {
+      for (let i = 0; i <= max; i++) {
+        const option = document.createElement('option');
+        option.value = i;
+        option.textContent = i + label;
+        select.appendChild(option);
+      }
+    }
+
+    function round2(n) {
+      return Math.round(n * 100) / 100;
+    }
+
+    function calculate() {
+      const years = Number(document.getElementById('years').value) || 0;
+      const months = Number(document.getElementById('months').value) || 0;
+      const serviceYears = years + months / 12;
+      const extraWeeks = Math.max(4, 4 * serviceYears - 4)
+      document.getElementById("calcResult").textContent = round2(extraWeeks);
+    }
+
+    populate(document.getElementById('years'), 10, '年');
+    populate(document.getElementById('months'), 11, '个月');
+  </script>
 </body>
+
 </html>
